@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using UnmatchedSocksSorter.Data;
 
 namespace UnmatchedSocksSorter
@@ -11,8 +8,6 @@ namespace UnmatchedSocksSorter
     {
         public List<Sock> NaiveSort(List<Sock> unmatchedSocks)
         {
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
             //Idea here is that we take the first sock n, find it's match, 
             //and switch the position of the match with the position of the sock n + 1.
             List<Sock> matchedSocks = new List<Sock>();
@@ -39,17 +34,11 @@ namespace UnmatchedSocksSorter
                 }
             }
 
-            watch.Stop();
-
-            Console.WriteLine("Completed Naive Sort in " + watch.ElapsedMilliseconds.ToString() + " milliseconds.");
-
             return matchedSocks;
         }
 
         public List<Sock> NaivePartialSort(List<Sock> unmatchedSocks)
         {
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
             //Idea here is that we take the first sock n, find it's match, 
             //and switch the position of the match with the position of the sock n + 1.
             List<Sock> matchedSocks = new List<Sock>();
@@ -74,10 +63,6 @@ namespace UnmatchedSocksSorter
                 }
             }
 
-            watch.Stop();
-
-            Console.WriteLine("Completed Naive Partial Sort in " + watch.ElapsedMilliseconds.ToString() + " milliseconds.");
-
             return matchedSocks;
         }
 
@@ -88,9 +73,6 @@ namespace UnmatchedSocksSorter
         /// <returns></returns>
         public List<Sock> OneLevelPileSort(List<Sock> socks)
         {
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
-
             var colorSortedSocks = SplitByColor(socks);
 
             List<Sock> matchedSocks = new List<Sock>();
@@ -100,17 +82,11 @@ namespace UnmatchedSocksSorter
             matchedSocks.AddRange(NaiveSort(colorSortedSocks[3]));
             matchedSocks.AddRange(NaiveSort(colorSortedSocks[4]));
 
-            watch.Stop();
-            Console.WriteLine("Completed One-Level Pile Sort in " + watch.ElapsedMilliseconds.ToString() + " milliseconds.");
-
             return matchedSocks;
         }
 
         public List<Sock> ThreeLevelPileSort(List<Sock> socks)
         {
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
-
             var colorSortedSocks = SplitByColor(socks);
 
             List<Sock> matchedSocks = new List<Sock>();
@@ -129,9 +105,6 @@ namespace UnmatchedSocksSorter
                     }
                 }
             }
-
-            watch.Stop();
-            Console.WriteLine("Completed Three-Level Pile Sort in " + watch.ElapsedMilliseconds.ToString() + " milliseconds.");
 
             return matchedSocks;
         }
@@ -236,20 +209,8 @@ namespace UnmatchedSocksSorter
             return colorSortedSocks;
         }
 
-        public List<Sock> SpecialSort(List<Sock> socks)
-        {
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
-            watch.Stop();
-            Console.WriteLine("Completed Special Sort in " + watch.ElapsedMilliseconds.ToString() + " milliseconds.");
-            Console.WriteLine("Nobody cares about matching socks anyway.");
-            return socks;
-        }
-
         public List<Sock> DictionarySort(List<Sock> unmatchedSocks)
         {
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
             List<Sock> matchedSocks = new List<Sock>();
 
             var waitingForMatch = new Dictionary<(SockOwner, SockColor, SockLength), Sock>();
@@ -271,9 +232,6 @@ namespace UnmatchedSocksSorter
                     waitingForMatch.Add(key, sock);
                 }
             }
-
-            watch.Stop();
-            Console.WriteLine("Completed Dictionary Sort in " + watch.ElapsedMilliseconds.ToString() + " milliseconds.");
 
             return matchedSocks;
         }
